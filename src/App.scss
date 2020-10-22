@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
-
 h1, h2, h3, h4, h5, h6 {
   margin-top: 0;
   margin-bottom: 0;
@@ -8,9 +6,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .card-style{
-  width: 1251px;
   border-radius: 16px;
-  margin-top: 55px;
-  margin-left: 90px;
+  margin: 55px 100px 0 90px;
+  display: block;
   font-family: 'Roboto', sans-serif;
 }
