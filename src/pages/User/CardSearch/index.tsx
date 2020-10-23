@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
-import Button from '../../../core/components/Button';
+import Button from 'core/components/Button';
+import { useHistory } from 'react-router-dom';
+import './styles.scss'
 
 
 const CardSearch = () => {
     const [userName, setUserName] = useState('');
 
+    const history = useHistory();
+
     const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setUserName(event.target.value);
-        console.log(userName);
+        history.push('/user/');
+        
     }
 
     const handleOnSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -16,18 +21,18 @@ const CardSearch = () => {
 
     return (
         <form onSubmit={handleOnSubmit}>
-            <div className="card-form card-style">
+            <div className="card-search-form card-style">
                 <h1>
                     Encontre um perfil Github
-            </h1>
+                </h1>
                 <input
-                    className="input-user-style"
+                    className="input-card-search-style"
                     type="text"
                     value={userName}
                     onChange={handleOnChange}
-                    placeholder="Nome do Usuário"
+                    placeholder="Usuário Github"
                 />
-                <Button text="Encontrar" to={`/user/${userName}`} className="btn-user-change" />
+                <Button text="Encontrar" to={`/user/${userName}`} className="btn-card-search-change" />
             </div>
         </form>
     );
