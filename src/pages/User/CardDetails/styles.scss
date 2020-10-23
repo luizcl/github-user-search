@@ -1,8 +1,27 @@
 .img-card-details{
-    width: 285;
-    height: 280;
+    width: 285px;
+    height: 280px;
+    margin-top: 25px;
+    margin-left: 30px;
 }
 
 .card-details-form{
     background: #F5F5F5;
+    display: flex;
+    border: black solid;
+}
+
+.user-not-found{
+    color: #f84747ea;
+    text-align: center;
+}
+
+.img-item-loader{
+    margin-top: 5px;
+    margin-left: 15px;
+}
+
+.info-item{
+    text-align: right;
+    margin-top: 25px;
 }
