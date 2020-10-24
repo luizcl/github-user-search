@@ -11,7 +11,7 @@ const CardSearch = () => {
 
     const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setUserName(event.target.value);
-        history.push('/user/');
+        history.push('/search/');
         
     }
 
@@ -32,7 +32,7 @@ const CardSearch = () => {
                     onChange={handleOnChange}
                     placeholder="Usuário Github"
                 />
-                <Button text="Encontrar" to={`/user/${userName}`} className="btn-card-search-change" />
+                <Button text="Encontrar" to={`/search/${userName}`} className="btn-card-search-change" />
             </div>
         </form>
     );

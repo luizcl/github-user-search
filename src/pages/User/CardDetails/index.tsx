@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import './styles.scss'
 import ImageLoader from '../components/Loaders/imageLoader';
 import InfoLoader from '../components/Loaders/infoLoader';
+import dayjs from 'dayjs';
 
 type ParamsType = {
     userName: string;
@@ -12,21 +13,20 @@ type ParamsType = {
 type User = {
     name: string,
     avatar_url: string,
-    url: string,
+    html_url: string,
     company: string,
     blog: string,
     location: string,
     public_repos: number,
     followers: number,
     following: number,
-    created_at: Date,
+    created_at: string,
 }
 
 const CardDetails = () => {
 
     const { userName } = useParams<ParamsType>();
     const [user, setUser] = useState<User>();
-    const [statusOk, setStatusOk] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const BASE_URL = 'https://api.github.com/users/';
 
@@ -37,51 +37,70 @@ const CardDetails = () => {
             method: 'GET',
             url: BASE_URL + userName,
         })
-            .then((response) => {
-                console.log("Deu bom");
-                console.log(response);
-                setStatusOk(response.status === 200);
-                console.log(statusOk);
-                setUser(response.data);
-            })
-            .finally(() => {
-                setIsLoading(false);
-                if(!statusOk){
-                    console.log("Deu ruim")
-                    setUser({
-                        name : "Usuário não encontrado",
-                        avatar_url: "https://neilpatel.com/wp-content/uploads/2019/05/ilustracao-panda-com-problema-error-404-not-found.jpeg",
-                        url: "",
-                        company: "",
-                        blog: "",
-                        location: "",
-                        public_repos: 0,
-                        followers: 0,
-                        following: 0,
-                        created_at: new Date("0000-00-00T00:00:00Z"),
-                    });
-                }
-                console.log("Passou aqui");
-                console.log(user);
-
-            });
+            .then((response) => setUser(response.data) )
+            .finally(() => setIsLoading(false) );
     }, [userName]);
+
+    const formatDate = (date: string) => (
+        dayjs(date).format("DD/MM/YYYY")
+    );
 
     return (
         <div className="card-style card-details-form">
-            { isLoading ? 
-                        <>
-                            <div className="img-item">
-                                <ImageLoader /> 
+            <div className="card-details-info-form">
+                {isLoading ?
+                    <>
+                        <div className="card-details-img-item-loader">
+                            <ImageLoader />
+                        </div>
+                        <div className="card-details-info-item">
+                            <InfoLoader />
+                        </div>
+                    </> :
+                    <>
+                        <img src={user?.avatar_url} alt={user?.name} className="card-details-img-item" />
+                        <div className="card-details-info-item">
+                            <div className="card-details-header">
+                                <h1 className="card-details-square-header card-details-form-style">
+                                    {`Repositórios públicos: ${user?.public_repos}`}
+                                </h1>
+                                <h1 className="card-details-square-header card-details-form-style">
+                                    {`Seguidores: ${user?.followers}`}
+                                </h1>
+                                <h1 className="card-details-square-header card-details-form-style">
+                                    {`Seguindo: ${user?.following}`}
+                                </h1>
                             </div>
-                            <div className="info-item">
-                                <InfoLoader />
+                            <div className="card-details-info card-details-form-style">
+                                <h1 className="card-details-info-title">
+                                    Informações
+                                    </h1>
+                                <h1 className="card-details-info-description">
+                                    Empresa: <div className="card-details-info-content">{user?.company}</div>
+                                </h1>
+                                <h1 className="card-details-info-description">
+                                    Website/Blog: <div className="card-details-info-content">{user?.blog}</div>
+                                </h1>
+                                <h1 className="card-details-info-description">
+                                    Localidade: <div className="card-details-info-content">{user?.location}</div>
+                                </h1>
+                                <h1 className="card-details-info-description">
+                                    Membro desde: 
+                                    {user?.created_at && 
+                                        <div className="card-details-info-content">{formatDate(user.created_at)}</div>
+                                    }
+                                </h1>
                             </div>
-                        </> : 
-                        <>
-                            <img src={user?.avatar_url} alt={user?.name} className="img-card-details" />
-                        </>
+                        </div>
+                    </>
+                }
+            </div>
+            { user?.html_url &&
+                <a href={user.html_url} target="_blank" rel="noopener noreferrer" >
+                    <button className="btn-style btn-access-profile">Ver perfil</button>
+                </a>
             }
+
         </div>
     );
 }

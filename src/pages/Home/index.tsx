@@ -17,7 +17,7 @@ const Home = () => (
             Este design foi adaptado a partir de Ant Design System for Figma, de <br />
             Mateusz Wierzbicki: <a href="mailto:antforfigma@gmail.com" className="mail-referece">antforfigma@gmail.com</a>
         </p>
-        <Button text="Começar" to="/user"/>
+        <Button text="Começar" to="/search"/>
     </div>
 );
 

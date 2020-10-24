@@ -4,14 +4,13 @@ import ContentLoader from "react-content-loader"
 const ImageLoader = () => (
   <ContentLoader 
     speed={2}
-    width="100%"
-    height="100%"
-    viewBox="0 0 400 460"
+    width={285}
+    height={365}
     backgroundColor="#dedede"
     foregroundColor="#f5f5f5"
   >
-    <rect x="19" y="23" rx="2" ry="2" width="284" height="284" /> 
-    <rect x="23" y="319" rx="0" ry="0" width="155" height="48" />
+    <rect x="0" y="0" rx="10" ry="10" width="285" height="285" /> 
+    <rect x="0" y="315" rx="10" ry="10" width="155" height="50" />
   </ContentLoader>
 )
 

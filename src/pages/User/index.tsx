@@ -10,7 +10,7 @@ const User = () => {
         <BrowserRouter>
             <CardSearch />
             <Switch>
-                <Route path="/user/:userName">
+                <Route path="/search/:userName">
                     <CardDetails />
                 </Route>
             </Switch>
